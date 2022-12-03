@@ -13,24 +13,14 @@
   (let [half (/ (count rucksack) 2)]
     (list (subs rucksack 0 half) (subs rucksack half))))
 
-(defn map2 [mapping-func two-dim] 
-  (map #(map mapping-func %) two-dim))
-
-(defn map3 [mapping-func three-dim] 
-  (map #(map (fn [group] (map mapping-func group)) %) three-dim))
-
 (defn parse-items [compartment]
   (str/split compartment #""))
 
 (defn parse-input [input]
-  (map2 parse-items (map parse-compartments (parse-rucksacks input))))
+  (map #(map parse-items (parse-compartments %)) (parse-rucksacks input)))
 
-(defn compartments-as-sets [parsed-rucksacks]
-  (map2 set parsed-rucksacks))
-
-(defn find-common [set-rucksacks]
-  (map first (map #(apply sets/intersection %) set-rucksacks)))
-
+(defn find-common [set-list]
+  (first (apply sets/intersection set-list)))
 
 (def map-to-priority {
   "a"  1
@@ -87,12 +77,12 @@
   "Z" 52
 })
 
-(defn calc-priority [incorrect-items]
-  (map #(get map-to-priority %) incorrect-items))
+(defn calc-priority [parsed-input]
+  (map #(get map-to-priority (find-common (map set %))) parsed-input))
 
 (defn sum [x] (reduce + x))
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (println (sum (calc-priority (find-common (compartments-as-sets (parse-input input-content)))))))
+  (println (sum (calc-priority(parse-input input-content)))))
