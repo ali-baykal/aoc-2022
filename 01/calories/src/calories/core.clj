@@ -16,7 +16,14 @@
 (defn sum-calories [grouped-calories]
   (map sum grouped-calories))
 
-(defn -main
-  "I don't do a whole lot ... yet."
+(defn -main-solution1
+  "I solve the first part"
   [& args]
   (println (apply max (sum-calories (group-calories input-content)))))
+
+(def high-calories (reverse (sort (sum-calories (group-calories input-content)))))
+
+(defn -main
+  "I solve the second part"
+  [& args]
+  (println (sum (take 3 high-calories))))
