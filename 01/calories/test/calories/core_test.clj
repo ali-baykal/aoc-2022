@@ -1,6 +1,6 @@
-(ns -01-calories.core-test
+(ns calories.core-test
   (:require [clojure.test :refer :all]
-            [-01-calories.core :refer :all]))
+            [calories.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."

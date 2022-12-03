@@ -1,4 +1,4 @@
-(ns -01-calories.core
+(ns calories.core
   (:gen-class))
 
 (defn -main
