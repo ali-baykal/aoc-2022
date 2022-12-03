@@ -2,6 +2,6 @@
   (:require [clojure.test :refer :all]
             [rock-paper-scissors.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest move-score-test
+  (testing "has values for each move possibility"
+    (is (= (get move-score '(:rock :paper)) 8))))
