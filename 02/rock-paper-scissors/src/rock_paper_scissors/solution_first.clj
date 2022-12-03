@@ -1,4 +1,4 @@
-(ns rock-paper-scissors.core
+(ns rock-paper-scissors.solution-first
   (:require [clojure.string :as str])
   (:gen-class))
 
@@ -9,9 +9,9 @@
   (map (fn [group] (map mapping-func group)) two-dim))
 
 (def map-to-symbol {
-  "X" :lose
-  "Y" :draw
-  "Z" :win
+  "X" :rock
+  "Y" :paper
+  "Z" :scissors
   "A" :rock
   "B" :paper
   "C" :scissors
@@ -25,17 +25,17 @@
 (def lose-point 0)
 
 (def move-score (hash-map
-  '(:rock :draw) (+ rock-point draw-point)
-  '(:rock :lose) (+ scissors-point lose-point)
-  '(:rock :win) (+ paper-point win-point)
+  '(:rock :rock) (+ rock-point draw-point)
+  '(:rock :scissors) (+ scissors-point lose-point)
+  '(:rock :paper) (+ paper-point win-point)
 
-  '(:scissors :win) (+ rock-point win-point)
-  '(:scissors :draw) (+ scissors-point draw-point)
-  '(:scissors :lose) (+ paper-point lose-point)
+  '(:scissors :rock) (+ rock-point win-point)
+  '(:scissors :scissors) (+ scissors-point draw-point)
+  '(:scissors :paper) (+ paper-point lose-point)
 
-  '(:paper :lose) (+ rock-point lose-point)
-  '(:paper :win) (+ scissors-point win-point)
-  '(:paper :draw) (+ paper-point draw-point)
+  '(:paper :rock) (+ rock-point lose-point)
+  '(:paper :scissors) (+ scissors-point win-point)
+  '(:paper :paper) (+ paper-point draw-point)
 ))
 
 (defn group-moves [input]
