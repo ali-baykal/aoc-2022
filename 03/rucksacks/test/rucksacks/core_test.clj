@@ -1,11 +1,7 @@
 (ns rucksacks.core-test
   (:require [clojure.test :refer :all]
             [rucksacks.core :refer :all]))
-
-(deftest parse-compartments-test
-  (testing "splits a rucksack into two equal sized compartments"
-    (is (= (parse-compartments "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL") '("jqHRNqRjqzjGDLGL" "rsFMfFZSrLrFZsSL")))))
-
-(deftest parse-items-test
-  (testing "split compartment in its items"
-  (is (= (parse-items "jqHRNqRjqz") '("j" "q" "H" "R" "N" "q" "R" "j" "q" "z")))))
+  
+(deftest group-by-3-test
+  (testing "grouping item into lists of 3")
+    (is (= (group-by-3 '(1 2 3 4 5 6 7 8 9)) (list '(1 2 3) '(4 5 6) '(7 8 9)))))

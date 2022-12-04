@@ -1,4 +1,4 @@
-(ns rucksacks.core
+(ns rucksacks.solution-first
   (:require [clojure.string :as str])
   (:require [clojure.set :as sets])
   (:gen-class))
@@ -9,11 +9,15 @@
 (defn parse-rucksacks [input]
   (str/split-lines input-content))
 
+(defn parse-compartments [rucksack]
+  (let [half (/ (count rucksack) 2)]
+    (list (subs rucksack 0 half) (subs rucksack half))))
+
 (defn parse-items [compartment]
   (str/split compartment #""))
 
 (defn parse-input [input]
-  (map parse-items (parse-rucksacks input)))
+  (map #(map parse-items (parse-compartments %)) (parse-rucksacks input)))
 
 (defn find-common [set-list]
   (first (apply sets/intersection set-list)))
@@ -73,22 +77,12 @@
   "Z" 52
 })
 
-(defn group-by-3 [list]
-  (let [
-    by-three (take-nth 3 list)
-    minus-one (rest list)
-    minus-one-by-three (take-nth 3 minus-one)
-    minus-two (rest (rest list))
-    minus-two-by-three (take-nth 3 minus-two)
-  ]
-    (map vector by-three minus-one-by-three minus-two-by-three)))
-
 (defn calc-priority [parsed-input]
-  (map #(get map-to-priority (first (apply sets/intersection %))) (group-by-3 (map set parsed-input))))
+  (map #(get map-to-priority (find-common (map set %))) parsed-input))
 
 (defn sum [x] (reduce + x))
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (println (sum (calc-priority (parse-input input-content)))))
+  (println (sum (calc-priority(parse-input input-content)))))
