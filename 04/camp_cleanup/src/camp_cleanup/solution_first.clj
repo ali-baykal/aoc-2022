@@ -1,4 +1,4 @@
-(ns camp-cleanup.core
+(ns camp-cleanup.solution-first
   (:require [clojure.string :as str])
   (:gen-class))
 
@@ -11,18 +11,19 @@
 (defn parse-input [input]
   (map #(map split-range (str/split % #",")) (str/split-lines input-content)))
 
-(defn partially-contains? [larger-range, smaller-range]
+
+(defn fully-contains? [larger-range, smaller-range]
   (let [ 
     larger-range-start (first larger-range)
     larger-range-end (last larger-range)
     smaller-range-start (first smaller-range)
     smaller-range-end (last smaller-range)
   ]
-    (and (<= smaller-range-start larger-range-end) (>= smaller-range-end larger-range-start)))
+    (and (>= smaller-range-start larger-range-start) (<= smaller-range-end larger-range-end)))
 )
 
 (defn overlaps? [pair]
-  (apply partially-contains? pair))
+  (or (apply fully-contains? pair) (apply fully-contains? (reverse pair))))
 
 (defn find-overlaps [pair-list]
   (filter overlaps? pair-list))
