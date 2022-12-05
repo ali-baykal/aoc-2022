@@ -2,6 +2,34 @@
   (:require [clojure.test :refer :all]
             [crates.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(defn read-resource [resource-name]
+  (slurp (.getPath (clojure.java.io/resource resource-name))))
+
+(def test-file-content 
+  (read-resource "test-input"))
+
+(def initial-state-string 
+  (read-resource "initial-state"))
+
+(def initial-state-list (vector
+  '("N" "Z")
+  '("D" "C" "M")
+  '("P")
+))
+
+(def instructions-string
+  (read-resource "instructions"))
+
+(deftest split-input-test
+  (testing "split the initial input into the intial state and the instructions"
+    (is (= (split-input test-file-content) (list initial-state-string instructions-string)))))
+
+(deftest parse-state-line-test
+  (testing "parses a sing line into a vector"
+    (is (= (parse-state-line "    [D] [F]") [:empty "D" "F"]))))
+
+(deftest parse-initial-state-test
+  (testing "turns initial state strin in to two dimensional list"
+    (is (= (parse-initial-state initial-state-string) initial-state-list))))
+
+
