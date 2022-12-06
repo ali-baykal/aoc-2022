@@ -4,7 +4,8 @@
 
 (deftest find-marker-postion-test
   (testing "finds the position of the marker"
-    (is (= (find-marker-postion "bvwbjplbgvbhsrlpgdmjqwftvncz")) 5)
-    (is (= (find-marker-postion "bvwbjplbgvbhsrlpgdmjqwftvncz")) 6)
-    (is (= (find-marker-postion "bvwbjplbgvbhsrlpgdmjqwftvncz")) 10)
-    (is (= (find-marker-postion "bvwbjplbgvbhsrlpgdmjqwftvncz")) 11)))
+    (is (= (find-marker-postion "mjqjpqmgbljsphdztnvjfqwrcgsmlb") 7))
+    (is (= (find-marker-postion "bvwbjplbgvbhsrlpgdmjqwftvncz") 5))
+    (is (= (find-marker-postion "nppdvjthqldpwncqszvftbrmjlhg") 6))
+    (is (= (find-marker-postion "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg") 10))
+    (is (= (find-marker-postion "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw") 11))))
