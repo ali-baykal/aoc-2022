@@ -5,18 +5,24 @@
 (def input-path (.getPath (clojure.java.io/resource "input")))
 (def input-content (str/trim (slurp input-path)))
 
-(defn find-marker-postion-recur [signal index]
+(defn find-all-unique-recur [signal length index]
   (let [
-    first-4 (apply hash-set (take 4 signal))
+    first-n (apply hash-set (take length signal))
   ]
-    (if (= (count first-4) 4)
-      (+ index 4)
-      (recur (rest signal) (inc index)))))
+    (if (= (count first-n) length)
+      (+ index length)
+      (recur (rest signal) length (inc index)))))
 
-(defn find-marker-postion [input]
-  (find-marker-postion-recur (str/split input #"") 0))
+(defn find-all-unique [signal length]
+  (find-all-unique-recur signal length 0))
+
+(defn find-marker-position [input]
+  (find-all-unique (str/split input #"") 4))
+
+(defn find-message-position [input]
+  (find-all-unique (str/split input #"") 14))
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (println (find-marker-postion input-content)))
+  (println (find-message-position input-content)))
