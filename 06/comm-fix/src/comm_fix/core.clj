@@ -2,6 +2,9 @@
   (:require [clojure.string :as str])
   (:gen-class))
 
+(def input-path (.getPath (clojure.java.io/resource "input")))
+(def input-content (slurp input-path))
+
 (defn find-marker-postion-recur [signal index]
   (let [
     first-4 (apply hash-set (take 4 signal))
