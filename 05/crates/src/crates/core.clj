@@ -2,6 +2,9 @@
   (:require [clojure.string :as str])
   (:gen-class))
 
+(def input-path (.getPath (clojure.java.io/resource "input")))
+(def input-content (slurp input-path))
+
 (defn split-input [input]
   (str/split input #"\n\n"))
 
