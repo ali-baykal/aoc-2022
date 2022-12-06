@@ -29,6 +29,20 @@
   ]
     (remove-empty (apply map vector (map parse-state-line last-line-dropped)))))
 
+(defn parse-single-instruction [instruction-str]
+  (let [
+    interrim-map (apply hash-map (str/split instruction-str #" "))
+    transform-value (fn [key] (Integer/parseInt (get interrim-map key)))
+  ]
+    (hash-map
+      :move (transform-value "move")
+      :from (transform-value "from")
+      :to (transform-value "to")
+    )))
+
+(defn parse-instructions [input]
+  (map parse-single-instruction (str/split-lines input)))
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]

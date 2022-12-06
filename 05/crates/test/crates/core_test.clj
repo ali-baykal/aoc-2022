@@ -32,4 +32,6 @@
   (testing "turns initial state strin in to two dimensional list"
     (is (= (parse-initial-state initial-state-string) initial-state-list))))
 
-
+(deftest parse-single-instruction-test
+  (testing "parses a single line into a map")
+    (is (= (parse-single-instruction "move 1 from 2 to 1") {:move 1, :from 2, :to 1})))
