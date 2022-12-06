@@ -1,5 +1,6 @@
 (ns crates.core
   (:require [clojure.string :as str])
+  (:require [clojure.core.reducers :as reducers])
   (:gen-class))
 
 (def input-path (.getPath (clojure.java.io/resource "input")))
@@ -54,13 +55,23 @@
         from-index (- from 1)
         to-index (- to 1)
         taken-from (drop amount (get state from-index))
-        crates (take amount (get state from-index))
+        crates (reverse (take amount (get state from-index)))
         added-to (apply conj (get state to-index) (reverse crates))
         from-updated (assoc state from-index taken-from)
+        result (assoc from-updated to-index added-to)
       ]
-      (assoc from-updated to-index added-to)))
+
+      result ))
+
+(defn solve-first [input]
+  (let [
+    [initial-state-input instructions-input] (split-input input)
+    initial-state (parse-initial-state initial-state-input)
+    instructions (parse-instructions instructions-input)
+  ]
+    (reducers/reduce apply-move (apply vector initial-state) instructions)))
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (println "Hello, World!"))
+  (println (map first (solve-first input-content))))

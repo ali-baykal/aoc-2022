@@ -43,7 +43,18 @@
           (vector
             '("N" "Z")
             '("M")
-            '("D" "C" "P")
+            '("C" "D" "P")
           )
         )
+    )))
+
+(deftest solve-first-test 
+  (testing "solves the first part")
+    (is (= 
+      (solve-first test-file-content) 
+      (vector
+        '("C")
+        '("M")
+        '("Z" "N" "D" "P")
+      )
     )))
