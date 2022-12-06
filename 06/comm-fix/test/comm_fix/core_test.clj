@@ -2,6 +2,9 @@
   (:require [clojure.test :refer :all]
             [comm-fix.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest find-marker-postion-test
+  (testing "finds the position of the marker"
+    (is (= (find-marker-postion "bvwbjplbgvbhsrlpgdmjqwftvncz")) 5)
+    (is (= (find-marker-postion "bvwbjplbgvbhsrlpgdmjqwftvncz")) 6)
+    (is (= (find-marker-postion "bvwbjplbgvbhsrlpgdmjqwftvncz")) 10)
+    (is (= (find-marker-postion "bvwbjplbgvbhsrlpgdmjqwftvncz")) 11)))
