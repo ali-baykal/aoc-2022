@@ -35,3 +35,15 @@
 (deftest parse-single-instruction-test
   (testing "parses a single line into a map")
     (is (= (parse-single-instruction "move 1 from 2 to 1") {:move 1, :from 2, :to 1})))
+
+(deftest apply-move-test
+  (testing "applies the move the current state"
+    (is (= 
+          (apply-move initial-state-list {:move 2 :from 2 :to 3}) 
+          (vector
+            '("N" "Z")
+            '("M")
+            '("D" "C" "P")
+          )
+        )
+    )))
