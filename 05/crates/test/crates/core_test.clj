@@ -36,10 +36,10 @@
   (testing "parses a single line into a map")
     (is (= (parse-single-instruction "move 1 from 2 to 1") {:move 1, :from 2, :to 1})))
 
-(deftest apply-move-test
+(deftest apply-move-9000-test
   (testing "applies the move the current state"
     (is (= 
-          (apply-move initial-state-list {:move 2 :from 2 :to 3}) 
+          (apply-move-9000 initial-state-list {:move 2 :from 2 :to 3}) 
           (vector
             '("N" "Z")
             '("M")
@@ -47,6 +47,18 @@
           )
         )
     )))
+
+(deftest apply-move-9001-test
+  (testing "applies the move the current state"
+    (is (= 
+          (apply-move-9001 initial-state-list {:move 2 :from 2 :to 3}) 
+          (vector
+            '("N" "Z")
+            '("M")
+            '("D" "C" "P")
+          )
+        )
+    )))    
 
 (deftest solve-first-test 
   (testing "solves the first part")
@@ -56,5 +68,16 @@
         '("C")
         '("M")
         '("Z" "N" "D" "P")
+      )
+    )))
+
+(deftest solve-second-test 
+  (testing "solves the first part")
+    (is (= 
+      (solve-second test-file-content) 
+      (vector
+        '("M")
+        '("C")
+        '("D" "N" "Z" "P")
       )
     )))
