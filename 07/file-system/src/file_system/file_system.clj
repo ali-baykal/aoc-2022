@@ -3,18 +3,23 @@
 
 (def folder-type "folder")
 (def file-type "file")
-(defrecord Folder [name children parent type])
+(defrecord Folder [path type])
+(defrecord File [path size type])
 
-(defn create-folder [name children parent]
-  (->Folder name children parent folder-type))
+(defn create-folder [path]
+  (->Folder path folder-type))
 
-(defn add-child [folder child]
-  (let [current-children (.children folder)
-    updated-children (conj current-children child)
-  ] (map->Folder (merge folder {:children  updated-children}))))
+(defn create-file [size path]
+  (->File path size file-type))
+
+(def empty-file-system
+  (hash-map '("/") (create-folder '("/"))))
+
+(defn add-folder [file-system path]
+  (merge file-system (hash-map path (create-folder path))))
+
+(defn add-file [file-system path size]
+  (merge file-system (hash-map path (create-file size path))))
 
 
-(defrecord File [name size parent type])
 
-(defn create-file [name size parent]
-  (->File name size parent file-type))
